@@ -1,0 +1,14 @@
+{
+  "name": "ihme_vis",
+  "version": "1.0.0",
+  "description": "JS exercise for IHME",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carl Reiner",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
