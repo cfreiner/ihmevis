@@ -1,0 +1,17 @@
+.bar rect {
+  fill: steelblue;
+}
+
+.bar text {
+  fill: white;
+  font-size: .75em;
+}
+
+.x-label {
+  fill: black;
+  font-size: .75em;
+}
+
+.vis {
+  padding-bottom: 200px;
+}
