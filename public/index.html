@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="IHME">
   <head>
     <title>Obesity Vis</title>
     <link rel="stylesheet" type="text/css" href="app/css/style.css">
@@ -11,6 +11,11 @@
     <script src="app/vis.js"></script>
   </head>
   <body>
+
+    <div class="container-fluid">
+      <ng-view></ng-view>
+    </div>
+
     <form id="search-form">
       <input type="text">
     </form>
