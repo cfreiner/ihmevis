@@ -1,7 +1,7 @@
-//D3 config
-var height = 400;
-var width = window.innerWidth - 150;
-var widthPer = width/25;
+//D3 config vars
+var height = 400; //Height of the visualization
+var width = window.innerWidth - 150; //Width of the visualization
+var widthPer = width/25; //Width of each individual data bar SVG
 
 
 $(document).ready(function() {

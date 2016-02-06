@@ -2,25 +2,24 @@
 <html ng-app="IHME">
   <head>
     <title>Obesity Vis</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="app/css/style.css">
     <script src="lib/d3.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
     <script src="app/app.js"></script>
-    <script src="app/vis.js"></script>
+    <script src="app/controllers.js"></script>
+    <script src="data/countries.js"></script>
+    <!-- <script src="app/vis.js"></script> -->
   </head>
   <body>
-
     <div class="container-fluid">
       <ng-view></ng-view>
-    </div>
-
-    <form id="search-form">
-      <input type="text">
-    </form>
-    <div class="vis">
-
     </div>
   </body>
 </html>

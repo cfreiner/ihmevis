@@ -1,4 +1,4 @@
-var app = angular.module('IHME', ['ngRoute']);
+var app = angular.module('IHME', ['ngRoute', 'IhmeCtrls', 'ui.bootstrap']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider.when('/', {

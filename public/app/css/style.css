@@ -1,3 +1,7 @@
+svg {
+  margin: 0 auto;
+}
+
 .bar rect {
   fill: steelblue;
 }
