@@ -5,7 +5,8 @@ angular.module('IhmeCtrls', [])
     //D3 config vars
     var height = 400; //Height of the visualization
     var width = window.innerWidth - 150; //Width of the visualization
-    var widthPer = width/25; //Width of each individual data bar SVG
+    var widthPer = width/25; //Width of each individual bar SVG
+    var format = d3.format('.1%'); //1st decimal precision, percentage type
 
     $scope.fetchData = function() {
       d3.select('.vis svg').remove();
@@ -54,7 +55,7 @@ angular.module('IhmeCtrls', [])
           .attr('dx', widthPer/2)
           .attr('dy', 15)
           .text(function(d) {
-            return d.mean;
+            return format(d.mean);
           });
 
         svg.selectAll('.x-label')
@@ -72,6 +73,26 @@ angular.module('IhmeCtrls', [])
             return d.year;
           });
       });
-    }
+    };
+
+  }])
+  .controller('MapCtrl', ['$scope', function($scope) {
+    var map = d3.geomap
+      .choropleth()
+      .geofile('lib/d3-geomap/topojson/world/countries.json')
+      .colors(colorbrewer.Reds[9])
+      .column('mean')
+      .unitId('location');
+
+    d3.csv('data/adult.csv', function(data) {
+      var mapData = data.filter(function(item) {
+        if(item.year === '2013' && item.metric === 'obese' && item.sex === 'male') {
+          return true;
+        }
+      });
+      d3.select('#map')
+        .datum(mapData)
+        .call(map.draw, map);
+    });
 
   }]);
