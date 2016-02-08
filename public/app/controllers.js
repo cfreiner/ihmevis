@@ -1,18 +1,35 @@
 angular.module('IhmeCtrls', [])
   .controller('BarCtrl', ['$scope', function($scope) {
     $scope.countries = countryList;
+    $scope.notFound = false;
+    $scope.sex = 'male';
 
     //D3 config vars
     var height = 400; //Height of the visualization
     var width = window.innerWidth - 150; //Width of the visualization
     var widthPer = width/25; //Width of each individual bar SVG
     var format = d3.format('.1%'); //1st decimal precision, percentage type
+    var colorScale = d3.scale.linear()
+      .domain([0,0.6])
+      .range(['steelblue', 'red']);
 
     $scope.fetchData = function() {
-      d3.select('.vis svg').remove();
+      if($scope.countries.indexOf($scope.selected) === -1) {
+        $scope.notFound = true;
+        $scope.result = '';
+        d3.select('.vis svg')
+          .remove();
+        return;
+      }
+      $scope.notFound = false;
+      $scope.result = $scope.selected;
+
+      d3.select('.vis svg')
+        .remove();
+
       d3.csv("data/adult.csv", function(data) {
-        var test = data.filter(function(item) {
-          if(item.location_name === $scope.selected && item.metric === 'obese' && item.sex === 'male') {
+        var barData = data.filter(function(item) {
+          if(item.location_name === $scope.selected && item.metric === 'obese' && item.sex === $scope.sex) {
             return true;
           }
         });
@@ -22,7 +39,7 @@ angular.module('IhmeCtrls', [])
           .range([0, width - widthPer]);
 
         var yScale = d3.scale.linear()
-          .domain([0, 0.02 + d3.max(test, function(d) {
+          .domain([0, 0.02 + d3.max(barData, function(d) {
             return +d.mean;
           })])
           .range([0, height]);
@@ -33,21 +50,34 @@ angular.module('IhmeCtrls', [])
           .append('g')
           .attr('height', height + 100);
 
-
         var bar = svg.selectAll('.bar')
-          .data(test)
-          .enter()
+          .data(barData);
+
+        bar.enter()
           .append('g')
           .attr('class', 'bar')
+          .transition()
+          .duration(function() {
+            return Math.floor((Math.random() * 900) + 250);
+          })
           .attr('transform', function(d) {
             return 'translate(' + xScale(d.year) + ',' + (height - yScale(d.mean)) + ')';
           });
 
         bar.append('rect')
+          .attr('height', 0)
+          .attr('width', 0)
+          .transition()
+          .duration(function() {
+            return Math.floor((Math.random() * 900) + 250);
+          })
           .attr('height', function(d) {
             return yScale(d.mean);
           })
-          .attr('width', widthPer);
+          .attr('width', widthPer)
+          .attr('fill', function(d) {
+            return colorScale(d.mean);
+          });
 
         bar.append('text')
           .attr('class', 'y-label')
@@ -59,7 +89,7 @@ angular.module('IhmeCtrls', [])
           });
 
         svg.selectAll('.x-label')
-          .data(test)
+          .data(barData)
           .enter()
           .append('text')
           .attr('class', 'x-label')
@@ -77,22 +107,41 @@ angular.module('IhmeCtrls', [])
 
   }])
   .controller('MapCtrl', ['$scope', function($scope) {
+
+    $scope.slider = {
+      value: 1990,
+      options: {
+        floor: 1990,
+        ceil: 2013
+      }
+    };
+
+    $scope.$on('slideEnded', function() {
+      $scope.updateMap();
+    });
+
     var map = d3.geomap
       .choropleth()
       .geofile('lib/d3-geomap/topojson/world/countries.json')
       .colors(colorbrewer.Reds[9])
       .column('mean')
-      .unitId('location');
+      .unitId('location')
+      .duration(250);
 
-    d3.csv('data/adult.csv', function(data) {
-      var mapData = data.filter(function(item) {
-        if(item.year === '2013' && item.metric === 'obese' && item.sex === 'male') {
-          return true;
-        }
+    $scope.updateMap = function() {
+      d3.csv('data/adult.csv', function(data) {
+        var mapData = data.filter(function(item) {
+          if(item.year == $scope.slider.value && item.metric === 'obese' && item.sex === 'male') {
+            return true;
+          }
+        });
+        d3.select('#map svg').remove();
+        d3.select('#map')
+          .datum(mapData)
+          .call(map.draw, map);
       });
-      d3.select('#map')
-        .datum(mapData)
-        .call(map.draw, map);
-    });
+    };
+
+    $scope.updateMap();
 
   }]);

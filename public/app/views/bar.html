@@ -1,9 +1,19 @@
 <div>
+  <h1>Obesity By Country</h1>
+  <p>Enter the name of a country. The graph shows mean obesity from 1990 through 2013. Gender can be selected with the radio buttons. Colors range from blue to red as obesity values increase.</p>
   <form class="form-group" id="search-form" ng-submit="fetchData()">
-    <label>Country</label>
-    <input type="text" ng-model="selected" uib-typeahead="country for country in countries | filter:$viewValue | limitTo:8">
+    <label>Country: &nbsp;</label>
+    <input id="search" type="text" ng-model="selected" uib-typeahead="country for country in countries | filter:$viewValue | limitTo:8">
     <button class="btn btn-primary">Display Data</button>
   </form>
-  {{selected}}
+  <div class="form-group">
+    <label>Gender: &nbsp;</label>
+    <label class="radio-inline"><input type="radio" ng-change="fetchData()" ng-checked="true" ng-model="sex" value="male">Male</label>
+    <label class="radio-inline"><input type="radio" ng-change="fetchData()" ng-model="sex" value="female">Female</label>
+    <label class="radio-inline"><input type="radio" ng-change="fetchData()" ng-model="sex" value="both">Both</label>
+  </div>
+  <hr>
+  <h2 class="text-center">{{result}}</h2>
+  <h2 class="text-center" ng-show="notFound">Country Not Found!</h2>
   <div class="vis text-center"></div>
 </div>

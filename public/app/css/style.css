@@ -3,7 +3,7 @@ svg {
 }
 
 .bar rect {
-  fill: steelblue;
+  /*fill: steelblue;*/
 }
 
 .bar text {
@@ -18,4 +18,27 @@ svg {
 
 .vis {
   padding-bottom: 200px;
+}
+
+.slider {
+  max-width: 50%;
+  margin-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  border-radius: 0 !important;
+}
+
+.form-group {
+  font-size: 2rem;
+}
+
+#search {
+  border-style: none none solid none;
+}
+
+#search:focus {
+  outline: none;
 }
