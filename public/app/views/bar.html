@@ -1,6 +1,7 @@
 <div>
+  <a href="/">Back Home</a>
   <h1>Obesity By Country</h1>
-  <p>Enter the name of a country. The graph shows mean obesity from 1990 through 2013. Gender can be selected with the radio buttons. Colors range from blue to red as obesity values increase.</p>
+  <p>Enter the name of a country. The graph shows mean adult obesity from 1990 through 2013. Gender can be selected with the radio buttons. Colors range from blue to red as obesity values increase.</p>
   <form class="form-group" id="search-form" ng-submit="fetchData()">
     <label>Country: &nbsp;</label>
     <input id="search" type="text" ng-model="selected" uib-typeahead="country for country in countries | filter:$viewValue | limitTo:8">

@@ -2,7 +2,7 @@ var app = angular.module('IHME', ['ngRoute', 'IhmeCtrls', 'ui.bootstrap', 'rzMod
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
-    .when('/', {
+    .when('/bar', {
       templateUrl: '/app/views/bar.html',
       controller: 'BarCtrl'
     })
@@ -11,7 +11,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
       controller: 'MapCtrl'
     })
     .otherwise({
-      templateUrl: '/app/views/404.html'
+      templateUrl: '/app/views/about.html'
     });
   $locationProvider.html5Mode(true);
 }]);

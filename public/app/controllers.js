@@ -32,7 +32,7 @@ angular.module('IhmeCtrls', [])
         .remove();
 
       //Select appropriate data from the CSV
-      d3.csv("data/adult.csv", function(data) {
+      d3.csv("data/data.csv", function(data) {
         var barData = data.filter(function(item) {
           if(item.location_name === $scope.selected && item.metric === 'obese' && item.sex === $scope.sex) {
             return true;
@@ -144,7 +144,7 @@ angular.module('IhmeCtrls', [])
 
     //Function for updating the map from CSV
     $scope.updateMap = function() {
-      d3.csv('data/adult.csv', function(data) {
+      d3.csv('data/data.csv', function(data) {
         var mapData = data.filter(function(item) {
           if(item.year == $scope.slider.value && item.metric === 'obese' && item.sex === 'male') {
             return true;
